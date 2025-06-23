@@ -1,13 +1,13 @@
 .DEFAULT_GOAL := all
 
 NAME = cub3D
-SRC_DIR = src
+SRC_DIR = sources
 LIBFT_DIR = libft
 MINILIBX_DIR = minilibx-linux
 LDFLAGS = -Lminilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd
 INCLUDE = -I includes -I $(MINILIBX_DIR)
 
-SRCS = $(shell find $(SRC_DIR) -maxdepth 1 -name "*.c")
+SRCS = $(shell find $(SRC_DIR) -maxdepth 2 -name "*.c")
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
