@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:01 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/23 16:05:19 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:05:03 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "mlx.h"
 # include "parsing.h"
+# include "libft.h"
 # include "ray_casting.h"
 # include <fcntl.h>    // open
 # include <stdio.h>    // printf, perror

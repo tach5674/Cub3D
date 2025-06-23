@@ -1,5 +1,22 @@
 {
     "files.associations": {
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "bit": "cpp",
+        "climits": "cpp",
+        "cmath": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "cstdarg": "cpp",
+        "cstdbool": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "initializer_list": "cpp",
+        "limits": "cpp",
+        "new": "cpp",
+        "cinttypes": "cpp",
+        "cstdint": "cpp",
+        "typeinfo": "cpp"
     }
 }

@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 21:50:22 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/06/23 19:06:59 by ggevorgi         ###   ########.fr       */
+/*   Created: 2025/06/23 20:03:52 by ggevorgi          #+#    #+#             */
+/*   Updated: 2025/06/23 20:05:38 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstadd_back(t_line **lst, t_line *new)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_line	*lstcpy;
-
-	if (!lst || !new)
-		return ;
-	if (!*lst)
+	while (*s1 && *s1 == *s2)
 	{
-		*lst = new;
-		return ;
+		s1++;
+		s2++;
 	}
-	lstcpy = *lst;
-	while (lstcpy->next)
-		lstcpy = lstcpy->next;
-	lstcpy->next = new;
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

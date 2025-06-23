@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/23 15:56:50 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:06:55 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "cub3d.h"
+# include "libft.h"
 
 typedef struct s_color {
 	int	r;
@@ -34,13 +35,8 @@ typedef struct s_player {
 	char	dir; // 'N', 'S', 'E', 'W'
 }	t_player;
 
-typedef struct s_line {
-	char	*line;
-	int		line_length;
-}	t_line;
-
 typedef struct s_map {
-	t_line	*lines;
+	t_line	*map;
 	int		height;
 	t_player player;
 }	t_map;
@@ -52,6 +48,7 @@ typedef struct s_data {
 	t_map		map;            // карта и игрок
 }	t_data;
 
-void	parse(int argc, char **argv);
+int	parse_config(int fd, t_data *data);
+void	free_map(t_map *map);
 
 #endif
