@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:01 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/23 13:23:10 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:05:19 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>   // strerror
 # include <sys/time.h> // gettimeofday
 # include <unistd.h>   // close, read, write
+# include <stdbool.h>	// boolean
 
 # define WIDTH 1920
 # define HEIGHT 1080
