@@ -14,10 +14,12 @@
 # define CUB3D_H
 
 # include "mlx.h"
+# include "structs.h"
 # include "parsing.h"
 # include "libft.h"
 # include "ray_casting.h"
 # include "utils.h"
+# include "mlx_utils.h"
 # include <fcntl.h>    // open
 # include <stdio.h>    // printf, perror
 # include <stdlib.h>   // malloc, free, exit
@@ -25,6 +27,7 @@
 # include <sys/time.h> // gettimeofday
 # include <unistd.h>   // close, read, write
 # include <stdbool.h>	// boolean
+# include <math.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
