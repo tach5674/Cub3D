@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:01 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/23 13:23:10 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:31:47 by mikayel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include "parsing.h"
 # include "ray_casting.h"
+# include "utils.h"
 # include <fcntl.h>    // open
 # include <stdio.h>    // printf, perror
 # include <stdlib.h>   // malloc, free, exit

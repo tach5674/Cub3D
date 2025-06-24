@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 12:59:31 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/24 13:37:43 by mikayel          ###   ########.fr       */
+/*   Created: 2025/06/24 13:21:21 by mikayel           #+#    #+#             */
+/*   Updated: 2025/06/24 13:22:13 by mikayel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char *argv[])
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	void	*mlx;
-	void	*win;
+	size_t	i;
 
-	parse(argc, argv);
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, WIDTH, HEIGHT, "cub3d");
-	mlx_loop(mlx);
-	mlx_destroy_window(mlx, win);
+	i = -1;
+	while (s1[i] || s2[i])
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
 }
