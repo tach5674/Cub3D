@@ -3,11 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/23 13:23:49 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:52:55 by mikayel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	get_color(int map_value, int side)
+{
+	if (map_value == 1) return side ? 0x800000 : 0xFF0000;
+	else if (map_value == 2) return side ? 0x008000 : 0x00FF00;
+	else if (map_value == 3) return side ? 0x000080 : 0x0000FF;
+	else if (map_value == 4) return side ? 0x808080 : 0xFFFFFF;
+	else return side ? 0x808000 : 0xFFFF00;
+}
+
+void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
+{
+	for (int y = start; y <= end; y++)
+		my_mlx_pixel_put(data, x, y, color);
+}
+
+void	raycast(t_data *data)
+{
+	for (int x = 0; x < SCREEN_WIDTH; x++)
+	{
+		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+		double ray_dir_x = data->dir_x + data->plane_x * camera_x;
+		double ray_dir_y = data->dir_y + data->plane_y * camera_x;
+
+		int map_x = (int)data->pos_x;
+		int map_y = (int)data->pos_y;
+
+		double delta_dist_x = fabs(1.0 / (ray_dir_x == 0 ? 1e-6 : ray_dir_x));
+		double delta_dist_y = fabs(1.0 / (ray_dir_y == 0 ? 1e-6 : ray_dir_y));
+
+		double side_dist_x, side_dist_y;
+		int step_x, step_y, hit = 0, side;
+
+		if (ray_dir_x < 0)
+		{
+			step_x = -1;
+			side_dist_x = (data->pos_x - map_x) * delta_dist_x;
+		}
+		else
+		{
+			step_x = 1;
+			side_dist_x = (map_x + 1.0 - data->pos_x) * delta_dist_x;
+		}
+		if (ray_dir_y < 0)
+		{
+			step_y = -1;
+			side_dist_y = (data->pos_y - map_y) * delta_dist_y;
+		}
+		else
+		{
+			step_y = 1;
+			side_dist_y = (map_y + 1.0 - data->pos_y) * delta_dist_y;
+		}
+
+		while (!hit)
+		{
+			if (side_dist_x < side_dist_y)
+			{
+				side_dist_x += delta_dist_x;
+				map_x += step_x;
+				side = 0;
+			}
+			else
+			{
+				side_dist_y += delta_dist_y;
+				map_y += step_y;
+				side = 1;
+			}
+			if (world_map[map_y][map_x] > 0)
+				hit = 1;
+		}
+
+		double perp_wall_dist = (side == 0) ? (side_dist_x - delta_dist_x) : (side_dist_y - delta_dist_y);
+		int line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
+		int draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
+		int draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
+		if (draw_start < 0) draw_start = 0;
+		if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
+
+		int color = get_color(world_map[map_y][map_x], side);
+		draw_vertical_line(data, x, draw_start, draw_end, color);
+	}
+}

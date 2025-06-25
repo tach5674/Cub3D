@@ -6,11 +6,24 @@
 /*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:47:36 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/24 15:22:43 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/06/25 13:33:20 by mikayel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef STRUCTS_H
+# define STRUCTS_H
+
+# include "cub3d.h"
+
+typedef struct	s_keys
+{
+    int key_w;
+    int key_a;
+    int key_s;
+    int key_d;
+    int key_left;
+    int key_right;
+}	t_keys;
 
 typedef struct s_data
 {
@@ -29,5 +42,8 @@ typedef struct s_data
 	double	plane_y;
 	double	move_speed;
 	double	rot_speed;
-    int	keys[700];
+	double  old_time;
+    t_keys	keys;
 }	t_data;
+
+#endif

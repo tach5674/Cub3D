@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/24 13:22:25 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/25 13:33:35 by mikayel          ###   ########.fr       */
+/*   Created: 2025/06/25 13:31:46 by mikayel           #+#    #+#             */
+/*   Updated: 2025/06/25 13:34:00 by mikayel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef INIT_H
+# define INIT_H
 
 # include "cub3d.h"
 
-int	ft_strcmp(const char *s1, const char *s2);
+void init(t_data *data);
 
 #endif

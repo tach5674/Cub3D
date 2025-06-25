@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   hooks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/24 13:22:25 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/25 13:33:35 by mikayel          ###   ########.fr       */
+/*   Created: 2025/06/25 13:35:19 by mikayel           #+#    #+#             */
+/*   Updated: 2025/06/25 13:38:33 by mikayel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef HOOKS_H
+# define HOOKS_H
 
 # include "cub3d.h"
 
-int	ft_strcmp(const char *s1, const char *s2);
+int     key_press(int keycode, t_data *data);
+int     key_release(int keycode, t_data *data);
+void    handle_movement(t_data *data);
 
 #endif
