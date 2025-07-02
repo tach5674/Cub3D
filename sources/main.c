@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:59:31 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/23 20:26:28 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:15:24 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,12 @@ int main(int argc, char **argv)
 	int fd;
 
 	if (argc != 2)
-	{
-		printf("Usage: %s <map_file>\n", argv[0]);
-		return (1);
-	}
+		return (printf("Usage: %s <map_file>\n", argv[0]), 1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Error opening file");
-		return (1);
-	}
+		return (perror("Error opening file"), 1);
 	if (parse_config(fd, &data) == -1)
-	{
-		close(fd);
-		return (1);
-	}
+		return (close(fd), 1);
 	close(fd);
 	print_map(&data.map);
 	// Успешно
