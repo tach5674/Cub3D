@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/07 11:56:26 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:16:32 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*trim_newline(char *line);
 void	ft_free_split(char **arr);
 void	free_map(t_map *map);
 bool	error_msg(char *msg);
+bool	load_textures(t_data *data);
 bool	find_player(t_map *map);
 bool	is_color_line(char *line);
 int		parse_texture_line(char *line, t_data *data);

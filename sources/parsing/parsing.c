@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:11 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/07 11:37:03 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:16:46 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,5 @@ bool	parse_config(int fd, t_data *data)
 		return (false);
 	}
 	ft_lstclear(&map_lines, free);
-	return (validate_map(data));
+	return (load_textures(data) && validate_map(data));
 }

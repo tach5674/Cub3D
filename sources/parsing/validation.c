@@ -6,13 +6,35 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:26:06 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/07/07 12:10:49 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:17:11 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#include "cub3d.h"
+bool file_exists(const char *filename) {
+    int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1) {
+		return false;
+	}
+	close(fd);
+	return true;
+}
+
+bool load_textures(t_data *data) {
+	const char *textures[] = {data->textures.no, data->textures.so, data->textures.we, data->textures.ea};
+	const char *texture_names[] = {"North", "South", "West", "East"};
+
+	for (int i = 0; i < 4; i++) {
+		if (!file_exists(textures[i])) {
+			printf("Error: %s texture not found: %s\n", texture_names[i], textures[i]);
+			return false;
+		}
+	}
+	return true;
+}
 
 static bool	is_valid_char(char c)
 {
