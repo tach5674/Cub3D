@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 20:48:30 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/02/20 16:25:36 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:05:32 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # include <limits.h>
 # include <fcntl.h>
 
-typedef struct s_stack_node
-{
-	int					data;
-	size_t				index;
-	struct s_stack_node	*next;
-}	t_stack;
+typedef struct s_line {
+	char			*line;
+	int				line_length;
+	struct	s_line	*next;
+}	t_line;
 
 char	*get_next_line(int fd);
 int		ft_isalpha(int c);
@@ -49,6 +48,7 @@ int		ft_tolower(int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t n);
@@ -66,10 +66,10 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-t_stack	*ft_lstnew(int data, size_t index);
-void	ft_lstadd_front(t_stack **lst, t_stack *new);
-size_t	ft_lstsize(t_stack *lst);
-void	ft_lstadd_back(t_stack **lst, t_stack *new);
-t_stack	*ft_lstlast(t_stack *lst);
+t_line	*ft_lstnew(char *data);
+void	ft_lstadd_front(t_line **lst, t_line *new);
+size_t	ft_lstsize(t_line *lst);
+void	ft_lstadd_back(t_line **lst, t_line *new);
+t_line	*ft_lstlast(t_line *lst);
 
 #endif

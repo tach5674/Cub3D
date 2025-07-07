@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:01 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/24 13:31:47 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/07/02 12:12:54 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "mlx.h"
 # include "parsing.h"
+# include "libft.h"
 # include "ray_casting.h"
 # include "utils.h"
 # include <fcntl.h>    // open
@@ -23,6 +24,7 @@
 # include <string.h>   // strerror
 # include <sys/time.h> // gettimeofday
 # include <unistd.h>   // close, read, write
+# include <stdbool.h>	// boolean
 
 # define WIDTH 1920
 # define HEIGHT 1080

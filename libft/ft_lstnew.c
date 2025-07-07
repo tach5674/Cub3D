@@ -6,21 +6,21 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:14:56 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/02/15 15:20:54 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:04:07 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_stack	*ft_lstnew(int data, size_t index)
+t_line	*ft_lstnew(char	*data)
 {
-	t_stack	*nnode;
+	t_line	*nnode;
 
-	nnode = (t_stack *)malloc(sizeof(t_stack));
+	nnode = (t_line *)malloc(sizeof(t_line));
 	if (!nnode)
 		return (NULL);
-	nnode->data = data;
-	nnode->index = index;
+	nnode->line = data;
+	nnode->line_length = ft_strlen(data);
 	nnode->next = NULL;
 	return (nnode);
 }
