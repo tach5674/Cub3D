@@ -16,37 +16,6 @@
 # include "cub3d.h"
 # include "libft.h"
 # include "stdbool.h"
-typedef struct s_color {
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
-
-typedef struct s_texture {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}	t_texture;
-
-typedef struct s_player {
-	int		x;
-	int		y;
-	char	dir; // 'N', 'S', 'E', 'W'
-}	t_player;
-
-typedef struct s_map {
-	t_line	*map;
-	int		height;
-	t_player player;
-}	t_map;
-
-typedef struct s_data {
-	t_texture	textures;       // пути к текстурам: NO, SO, WE, EA
-	t_color		floor_color;    // F
-	t_color		ceiling_color;  // C
-	t_map		map;            // карта и игрок
-}	t_data;
 
 void	free_map(t_map *map);
 void	ft_lstclear(t_line **lst, void (*del)(void *));

@@ -12,6 +12,11 @@
 
 #include "cub3d.h"
 
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 960
+#define MAP_WIDTH 24
+#define MAP_HEIGHT 24
+
 void print_map(const t_map *map)
 {
     if (!map || !map->map)
@@ -32,6 +37,7 @@ void print_map(const t_map *map)
 int main(int argc, char **argv)
 {
 	t_data data;
+
 	int fd;
 
 	if (argc != 2)
@@ -47,12 +53,8 @@ int main(int argc, char **argv)
 	printf("Map parsed successfully. Player at (%d, %d) facing %c\n",
 		data.map.player.x, data.map.player.y, data.map.player.dir);
 	free_map(&data.map);
+	init(&data);
 }
-
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 960
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
 
 int world_map[MAP_HEIGHT][MAP_WIDTH] =
 {
@@ -105,15 +107,6 @@ int	render_frame(t_data *data)
 	gettimeofday(&time, NULL);
 	frame_time = time.tv_sec + time.tv_usec / 1000000.0 - frame_time;
 	printf("FPS: %f\n", 1.0 / frame_time);
-	return (0);
-}
-
-int	main(int argc, char *argv[])
-{
-	t_data	data;
-		
-	parse(argc, argv);
-	init(&data);
 	return (0);
 }
 
