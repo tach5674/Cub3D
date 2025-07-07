@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:59:31 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/02 12:15:24 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/07 11:37:11 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (perror("Error opening file"), 1);
-	if (parse_config(fd, &data) == -1)
+	if (!parse_config(fd, &data))
 		return (close(fd), 1);
 	close(fd);
 	print_map(&data.map);

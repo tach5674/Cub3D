@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:04:46 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/07/02 12:16:37 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/07 11:37:15 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,12 @@ void	free_map(t_map *map)
 	free(map->map);
 	map->map = NULL;
 	map->height = 0;
+}
+
+bool	error_msg(char *msg)
+{
+	write(2, "Error\n", 6);
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
+	return (false);
 }

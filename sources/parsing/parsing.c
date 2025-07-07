@@ -6,7 +6,7 @@
 /*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:11 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/02 17:10:13 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/07 11:37:03 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	process_line(char *line, bool *map_started,
 	return (0);
 }
 
-int	parse_config(int fd, t_data *data)
+bool	parse_config(int fd, t_data *data)
 {
 	char	*line;
 	t_line	*map_lines;
@@ -116,15 +116,15 @@ int	parse_config(int fd, t_data *data)
 		line = trim_newline(line);
 		result = process_line(line, &map_started, &map_lines, data);
 		if (result == -1)
-			return (free(line), ft_lstclear(&map_lines, free), -1);
+			return (free(line), ft_lstclear(&map_lines, free), false);
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (!convert_list_to_map(map_lines, &data->map))
 	{
 		ft_lstclear(&map_lines, free);
-		return (-1);
+		return (false);
 	}
 	ft_lstclear(&map_lines, free);
-	return (0);
+	return (validate_map(data));
 }
