@@ -17,6 +17,7 @@
 # include "parsing.h"
 # include "libft.h"
 # include "ray_casting.h"
+# include "utils.h"
 # include <fcntl.h>    // open
 # include <stdio.h>    // printf, perror
 # include <stdlib.h>   // malloc, free, exit
