@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/06/25 13:52:55 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/07/09 14:33:21 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,29 @@ void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
 {
 	for (int y = start; y <= end; y++)
 		my_mlx_pixel_put(data, x, y, color);
+}
+
+static int get_number(t_data *data, t_line *line, int map_y, int map_x)
+{
+	int	i;
+	int	j;
+	t_line *temp;
+	
+	i = 0;
+	j = 0;
+	temp = line;
+	if (map_y > data->map.height)
+		return (-1);
+	while (j <= map_y)
+	{
+		temp = temp->next;
+		j++;
+	}
+	if (map_x > temp->line_length)
+		return (-1);
+	while (i <= map_x)
+		i++;
+	return (temp->line[i] - '0');
 }
 
 void	raycast(t_data *data)
@@ -79,7 +102,7 @@ void	raycast(t_data *data)
 				map_y += step_y;
 				side = 1;
 			}
-			if (world_map[map_y][map_x] > 0)
+			if (get_number(data, data->map.map, map_y, map_x) > 0)
 				hit = 1;
 		}
 
@@ -90,7 +113,7 @@ void	raycast(t_data *data)
 		if (draw_start < 0) draw_start = 0;
 		if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
 
-		int color = get_color(world_map[map_y][map_x], side);
+		int color = get_color(get_number(data, data->map.map, map_y, map_x), side);
 		draw_vertical_line(data, x, draw_start, draw_end, color);
 	}
 }
