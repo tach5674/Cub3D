@@ -23,8 +23,9 @@ void    init(t_data *data)
 	if (!data->win)
         exit(EXIT_FAILURE);
 	ft_memset(&data->keys, 0, sizeof(t_keys));
-	data->pos_x = 22;
-	data->pos_y = 12;
+	data->pos_x = data->map.player.x;
+	data->pos_y = data->map.player.y;
+	// data->map.map[data->map.player.y].line[data->map.player.x] = '0';
 	data->dir_x = -1;
 	data->dir_y = 0;
 	data->plane_x = 0;

@@ -27,28 +27,62 @@ void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
 		my_mlx_pixel_put(data, x, y, color);
 }
 
-static int get_number(t_data *data, t_line *line, int map_y, int map_x)
-{
-	int	i;
-	int	j;
-	t_line *temp;
+// static int get_number(t_data *data, t_line *line, int map_y, int map_x)
+// {
+// 	int	i;
+// 	int	j;
+// 	t_line *temp;
 	
+// 	i = 0;
+// 	j = 0;
+// 	temp = line;
+// 	if (map_y >= data->map.height)
+// 		return (-1);
+// 	while (j < map_y)
+// 	{
+// 		temp = temp->next;
+// 		j++;
+// 	}
+// 	if (map_x >= temp->line_length)
+// 		return (-1);
+// 	while (i < map_x)
+// 		i++;
+// 	return (temp->line[i] - '0');
+// }
+
+
+int	get_number(t_map *map, int map_x, int map_y)
+{
+	t_line *current;
+	int i;
+
+	if (!map || map_x < 0 || map_y < 0)
+		return -1;
+
+	current = map->map;
 	i = 0;
-	j = 0;
-	temp = line;
-	if (map_y > data->map.height)
-		return (-1);
-	while (j <= map_y)
+
+	// Traverse to the desired line (map_y)
+	while (current && i < map_y)
 	{
-		temp = temp->next;
-		j++;
-	}
-	if (map_x > temp->line_length)
-		return (-1);
-	while (i <= map_x)
+		current = current->next;
 		i++;
-	return (temp->line[i] - '0');
+	}
+
+	if (!current || !current->line || map_x >= current->line_length)
+		return -1; // out of bounds or malformed line
+
+	char cell = current->line[map_x];
+	if (cell == ' ')
+		return -2; // space = void
+	else if (cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
+		return 0;
+	else if (cell >= '0' && cell <= '9')
+		return cell - '0';
+
+	return -1;
 }
+
 
 void	raycast(t_data *data)
 {
@@ -102,7 +136,12 @@ void	raycast(t_data *data)
 				map_y += step_y;
 				side = 1;
 			}
-			if (get_number(data, data->map.map, map_y, map_x) > 0)
+			if (map_y >= data->map.height)
+			{
+				printf("Unexpected hit\n");
+				break;
+			}
+			if (get_number(&data->map, map_x, map_y) > 0)
 				hit = 1;
 		}
 
@@ -113,7 +152,7 @@ void	raycast(t_data *data)
 		if (draw_start < 0) draw_start = 0;
 		if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
 
-		int color = get_color(get_number(data, data->map.map, map_y, map_x), side);
+		int color = get_color(get_number(&data->map, map_x, map_y), side);
 		draw_vertical_line(data, x, draw_start, draw_end, color);
 	}
 }

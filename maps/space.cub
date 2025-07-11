@@ -1,7 +1,7 @@
-NO ./path.xpm
-SO ./path.xpm
-WE ./path.xpm
-EA ./path.xpm
+NO ./textures/wall_4.xpm
+WE ./textures/wall_3.xpm
+SO ./textures/wall_2.xpm
+EA ./textures/wall_1.xpm
 
 F 0,255,0
 C 0,0,255

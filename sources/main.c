@@ -34,28 +34,6 @@ void print_map(const t_map *map)
     }
 }
 
-int main(int argc, char **argv)
-{
-	t_data data;
-
-	int fd;
-
-	if (argc != 2)
-		return (printf("Usage: %s <map_file>\n", argv[0]), 1);
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (perror("Error opening file"), 1);
-	if (!parse_config(fd, &data))
-		return (close(fd), 1);
-	close(fd);
-	print_map(&data.map);
-	// Успешно
-	printf("Map parsed successfully. Player at (%d, %d) facing %c\n",
-		data.map.player.x, data.map.player.y, data.map.player.dir);
-	free_map(&data.map);
-	init(&data);
-}
-
 int world_map[MAP_HEIGHT][MAP_WIDTH] =
 {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -110,15 +88,24 @@ int	render_frame(t_data *data)
 	return (0);
 }
 
+int main(int argc, char **argv)
+{
+	t_data data;
 
-// int	main(int argc, char *argv[])
-// {
-// 	void	*mlx;
-// 	void	*win;
+	int fd;
 
-// 	parse(argc, argv);
-// 	mlx = mlx_init();
-// 	win = mlx_new_window(mlx, WIDTH, HEIGHT, "cub3d");
-// 	mlx_loop(mlx);
-// 	return (0);
-// }
+	if (argc != 2)
+		return (printf("Usage: %s <map_file>\n", argv[0]), 1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		return (perror("Error opening file"), 1);
+	if (!parse_config(fd, &data))
+		return (close(fd), 1);
+	close(fd);
+	print_map(&data.map);
+	// Успешно
+	printf("Map parsed successfully. Player at (%d, %d) facing %c\n",
+		data.map.player.x, data.map.player.y, data.map.player.dir);
+	free_map(&data.map);
+	init(&data);
+}
