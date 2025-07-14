@@ -106,6 +106,6 @@ int main(int argc, char **argv)
 	// Успешно
 	printf("Map parsed successfully. Player at (%d, %d) facing %c\n",
 		data.map.player.x, data.map.player.y, data.map.player.dir);
-	free_map(&data.map);
 	init(&data);
+	free_map(&data.map);
 }

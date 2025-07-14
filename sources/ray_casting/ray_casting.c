@@ -51,39 +51,6 @@ void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
 // }
 
 
-int	get_number(t_map *map, int map_x, int map_y)
-{
-	t_line *current;
-	int i;
-
-	if (!map || map_x < 0 || map_y < 0)
-		return -1;
-
-	current = map->map;
-	i = 0;
-
-	// Traverse to the desired line (map_y)
-	while (current && i < map_y)
-	{
-		current = current->next;
-		i++;
-	}
-
-	if (!current || !current->line || map_x >= current->line_length)
-		return -1; // out of bounds or malformed line
-
-	char cell = current->line[map_x];
-	if (cell == ' ')
-		return -2; // space = void
-	else if (cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
-		return 0;
-	else if (cell >= '0' && cell <= '9')
-		return cell - '0';
-
-	return -1;
-}
-
-
 void	raycast(t_data *data)
 {
 	for (int x = 0; x < SCREEN_WIDTH; x++)
@@ -94,7 +61,6 @@ void	raycast(t_data *data)
 
 		int map_x = (int)data->pos_x;
 		int map_y = (int)data->pos_y;
-
 		double delta_dist_x = fabs(1.0 / (ray_dir_x == 0 ? 1e-6 : ray_dir_x));
 		double delta_dist_y = fabs(1.0 / (ray_dir_y == 0 ? 1e-6 : ray_dir_y));
 
@@ -142,7 +108,9 @@ void	raycast(t_data *data)
 				break;
 			}
 			if (get_number(&data->map, map_x, map_y) > 0)
+			{
 				hit = 1;
+			}
 		}
 
 		double perp_wall_dist = (side == 0) ? (side_dist_x - delta_dist_x) : (side_dist_y - delta_dist_y);

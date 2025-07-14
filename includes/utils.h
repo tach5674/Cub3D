@@ -15,6 +15,7 @@
 
 # include "cub3d.h"
 
-int	ft_strcmp(const char *s1, const char *s2);
+// int	ft_strcmp(const char *s1, const char *s2);
+int	get_number(t_map *map, int map_x, int map_y);
 
 #endif

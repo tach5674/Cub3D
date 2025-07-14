@@ -17,10 +17,9 @@ static void    move(t_data *data, double frame_time, int sign)
     double  move_step;
 
     move_step = data->move_speed * frame_time;
-
-    if (world_map[(int)(data->pos_y)][(int)(data->pos_x + data->dir_x * move_step * sign)] == 0)
+    if (get_number(&data->map, (int)(data->pos_x + data->dir_x * move_step * sign), (int)(data->pos_y)) == 0)
         data->pos_x += data->dir_x * move_step * sign;
-    if (world_map[(int)(data->pos_y + data->dir_y * move_step * sign)][(int)data->pos_x] == 0)
+    if (get_number(&data->map, (int)data->pos_x, (int)(data->pos_y + data->dir_y * move_step * sign)) == 0)
         data->pos_y += data->dir_y * move_step * sign;
 }
 
@@ -33,10 +32,9 @@ static void    straife(t_data *data, double frame_time, int sign)
     perp_x = data->dir_y * sign;
     perp_y = -data->dir_x * sign;
     move_step = data->move_speed * frame_time;
-
-    if (world_map[(int)(data->pos_y)][(int)(data->pos_x + perp_x * move_step)] == 0)
+    if (get_number(&data->map, (int)(data->pos_x + perp_x * move_step), (int)(data->pos_y)) == 0)
         data->pos_x += perp_x * move_step;
-    if (world_map[(int)(data->pos_y + perp_y * move_step)][(int)data->pos_x] == 0)
+    if (get_number(&data->map, (int)data->pos_x, (int)(data->pos_y + perp_y * move_step)) == 0)
         data->pos_y += perp_y * move_step;
 }
 
