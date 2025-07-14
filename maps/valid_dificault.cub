@@ -1,15 +1,16 @@
-NO ./textures/north.xpm
-SO ./textures/south.xpm
-WE ./textures/west.xpm
-EA ./textures/east.xpm
+NO ./textures/wall_4.xpm
+WE ./textures/wall_3.xpm
+SO ./textures/wall_2.xpm
+EA ./textures/wall_1.xpm
 
 F 200,150,100
 C 100,150,200
 
 111111111111111111111
-1N0000000000000000001
+1S0000000000000000001
 111011111111111110101
 1   1     1        101
 1 111 11111 11111  101
 1     1        1   101
 111111111111111111111
+make

@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:29:38 by mikayel           #+#    #+#             */
-/*   Updated: 2025/07/14 13:04:31 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:14:41 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void    init(t_data *data)
 	if (!data->win)
         exit(EXIT_FAILURE);
 	ft_memset(&data->keys, 0, sizeof(t_keys));
-	data->pos_x = data->map.player.x;
-	data->pos_y = data->map.player.y;
+	data->pos_x = data->map.player.x + 0.5;
+	data->pos_y = data->map.player.y + 0.5;
 	data->map.map[data->map.player.y].line[data->map.player.x] = '0';
 	data->dir_x = 0;
 	data->dir_y = -1;
