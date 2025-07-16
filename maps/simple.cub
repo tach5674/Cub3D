@@ -3,8 +3,8 @@ WE ./textures/wall_3.xpm
 SO ./textures/wall_2.xpm
 EA ./textures/wall_1.xpm
 
-C 5,6,7
-F 30,31,32
+C 60,0,0
+F 80,0,0
 
 1111111111111111111111111
 1000000000110000000000001

@@ -6,11 +6,16 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/09 14:33:21 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/16 14:17:25 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
 static int	get_color(int map_value, int side)
 {
@@ -27,32 +32,18 @@ void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
 		my_mlx_pixel_put(data, x, y, color);
 }
 
-// static int get_number(t_data *data, t_line *line, int map_y, int map_x)
-// {
-// 	int	i;
-// 	int	j;
-// 	t_line *temp;
-	
-// 	i = 0;
-// 	j = 0;
-// 	temp = line;
-// 	if (map_y >= data->map.height)
-// 		return (-1);
-// 	while (j < map_y)
-// 	{
-// 		temp = temp->next;
-// 		j++;
-// 	}
-// 	if (map_x >= temp->line_length)
-// 		return (-1);
-// 	while (i < map_x)
-// 		i++;
-// 	return (temp->line[i] - '0');
-// }
-
-
 void	raycast(t_data *data)
 {
+    int floor_start = SCREEN_HEIGHT / 2;
+
+    for (int y = floor_start; y < SCREEN_HEIGHT; y++)
+    {
+        for (int x = 0; x < SCREEN_WIDTH; x++)
+        {
+            my_mlx_pixel_put(data, x, y, create_trgb(0, data->floor_color.r, data->floor_color.g, data->floor_color.b));
+            my_mlx_pixel_put(data, x, SCREEN_HEIGHT - y - 1, create_trgb(0, data->ceiling_color.r, data->ceiling_color.g, data->ceiling_color.b));
+        }
+    }
 	for (int x = 0; x < SCREEN_WIDTH; x++)
 	{
 		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
