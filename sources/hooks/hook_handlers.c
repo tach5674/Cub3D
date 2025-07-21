@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook_handlers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:21:20 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/25 14:22:00 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/07/21 15:12:24 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void    rotate(t_data *data, double frame_time)
     
     rot_step = data->rot_speed * frame_time;
     if (data->keys.key_right && data->keys.key_right > data->keys.key_left)
-        rot = -rot_step;
-    else
         rot = rot_step;
+    else
+        rot = -rot_step;
     old_dir_x = data->dir_x;
     data->dir_x = data->dir_x * cos(rot) - data->dir_y * sin(rot);
     data->dir_y = old_dir_x * sin(rot) + data->dir_y * cos(rot);

@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:29:38 by mikayel           #+#    #+#             */
-/*   Updated: 2025/07/21 14:46:42 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:11:34 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static void	set_dir(t_data *data)
 		data->dir_x = 1;
 		data->dir_y = 0;
 		data->plane_x = 0;
-		data->plane_y = -0.66;
+		data->plane_y = 0.66;
 	}
 	else if (data->map.player.dir == 'S')
 	{
 		data->dir_x = 0;
 		data->dir_y = 1;
-		data->plane_x = 0.66;
+		data->plane_x = -0.66;
 		data->plane_y = 0;
 	}
 	else if (data->map.player.dir == 'W')
@@ -71,7 +71,7 @@ static void	set_dir(t_data *data)
 		data->dir_x = -1;
 		data->dir_y = 0;
 		data->plane_x = 0;
-		data->plane_y = 0.66;
+		data->plane_y = -0.66;
 	}
 }
 
@@ -91,7 +91,7 @@ void    init(t_data *data)
 	data->map.map[data->map.player.y].line[data->map.player.x] = '0';
 	data->dir_x = 0;
 	data->dir_y = -1;
-	data->plane_x = -0.66;
+	data->plane_x = 0.66;
 	data->plane_y = 0;
 	set_dir(data);
 	data->move_speed = 3;
