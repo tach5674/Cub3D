@@ -6,12 +6,20 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:01 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/16 14:18:34 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:34:17 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+#define MAP_WIDTH 24
+#define MAP_HEIGHT 24
+#define TEXTURE_WIDTH 64
+#define TEXTURE_HEIGHT 64
+#define NUM_TEXTURES 4
 
 # include "libft.h"
 # include "mlx.h"
@@ -33,10 +41,6 @@
 # include <stdbool.h>	// boolean
 # include <math.h>
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
 
 extern int world_map[MAP_HEIGHT][MAP_WIDTH];
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 13:21:21 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/24 13:22:13 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:15:17 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ int	get_number(t_map *map, int map_x, int map_y)
 		printf("out\n");
 		return -1; // out of bounds or malformed line
 	}
+	if (map->map[map_y].line[map_x] == ' ')
+		return (1);
 	return (map->map[map_y].line[map_x] - '0');
 }

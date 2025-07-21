@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:59:31 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/16 14:18:51 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:42:05 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ int	render_frame(t_data *data)
 
 	handle_movement(data);
 
-	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	// data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	// data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
 	
 	// memset(data->addr, 0, SCREEN_HEIGHT * data->line_length);
 
 	raycast(data);
 	
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	mlx_destroy_image(data->mlx, data->img);
+	// mlx_destroy_image(data->mlx, data->img);
 	
 	gettimeofday(&time, NULL);
 	frame_time = time.tv_sec + time.tv_usec / 1000000.0 - frame_time;

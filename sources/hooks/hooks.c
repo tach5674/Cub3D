@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:35:04 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/25 14:21:37 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:40:26 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int key_press(int keycode, t_data *data)
     if (keycode == 65307) // ESC
     {
         mlx_destroy_window(data->mlx, data->win);
-		// mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_image(data->mlx, data->img);
         exit(0);
     }
     else if (keycode == 119) data->keys.key_w = 1;        // W

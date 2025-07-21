@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikayel <mikayel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:47:36 by mikayel           #+#    #+#             */
-/*   Updated: 2025/06/25 13:33:20 by mikayel          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:59:10 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_data
 	t_color		floor_color;    // F
 	t_color		ceiling_color;  // C
 	t_map		map;            // карта и игрок
+	int 		textures_test[NUM_TEXTURES][TEXTURE_WIDTH * TEXTURE_HEIGHT];
 }	t_data;
 
 #endif

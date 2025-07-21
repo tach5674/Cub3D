@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/16 14:17:25 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:12:56 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-static int	get_color(int map_value, int side)
-{
-	if (map_value == 1) return side ? 0x800000 : 0xFF0000;
-	else if (map_value == 2) return side ? 0x008000 : 0x00FF00;
-	else if (map_value == 3) return side ? 0x000080 : 0x0000FF;
-	else if (map_value == 4) return side ? 0x808080 : 0xFFFFFF;
-	else return side ? 0x808000 : 0xFFFF00;
-}
+// static int	get_color(int map_value, int side)
+// {
+// 	if (map_value == 1) return side ? 0x800000 : 0xFF0000;
+// 	else if (map_value == 2) return side ? 0x008000 : 0x00FF00;
+// 	else if (map_value == 3) return side ? 0x000080 : 0x0000FF;
+// 	else if (map_value == 4) return side ? 0x808080 : 0xFFFFFF;
+// 	else return side ? 0x808000 : 0xFFFF00;
+// }
 
 void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
 {
@@ -111,7 +111,34 @@ void	raycast(t_data *data)
 		if (draw_start < 0) draw_start = 0;
 		if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
 
-		int color = get_color(get_number(&data->map, map_x, map_y), side);
-		draw_vertical_line(data, x, draw_start, draw_end, color);
+		// int color = get_color(get_number(&data->map, map_x, map_y), side);
+		// draw_vertical_line(data, x, draw_start, draw_end, color);
+		
+		int texture_id = get_number(&data->map, map_x, map_y) - 1;
+
+		// Wall hit X
+		double wall_x;
+		if (side == 0)
+			wall_x = data->pos_y + perp_wall_dist * ray_dir_y;
+		else
+			wall_x = data->pos_x + perp_wall_dist * ray_dir_x;
+		wall_x -= floor(wall_x);
+
+		// Texture X
+		int tex_x = (int)(wall_x * (double)TEXTURE_WIDTH);
+		if ((side == 0 && ray_dir_x > 0) || (side == 1 && ray_dir_y < 0))
+			tex_x = TEXTURE_WIDTH - tex_x - 1;
+
+		// Draw textured vertical line
+		for (int y = draw_start; y < draw_end; y++)
+		{
+			int d = y * 256 - SCREEN_HEIGHT * 128 + line_height * 128;
+			int tex_y = ((d * TEXTURE_HEIGHT) / line_height) / 256;
+			int color = data->textures_test[texture_id][TEXTURE_HEIGHT * tex_y + tex_x];
+			if (side)
+				color = (color >> 1) & 0x7F7F7F;
+			my_mlx_pixel_put(data, x, y, color);
+		}
+
 	}
 }
