@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:21:20 by mikayel           #+#    #+#             */
-/*   Updated: 2025/07/21 15:12:24 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:24:28 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void handle_movement(t_data *data)
     if (data->keys.key_s) // Backward
         move(data, frame_time, -1);
     if (data->keys.key_d) // Strafe right
-        straife(data, frame_time, 1);
-    if (data->keys.key_a) // Strafe left
         straife(data, frame_time, -1);
+    if (data->keys.key_a) // Strafe left
+        straife(data, frame_time, 1);
     if (data->keys.key_left || data->keys.key_right) // Rotation
         rotate(data, frame_time);
 }

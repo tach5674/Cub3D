@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:26:06 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/07/07 12:17:11 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:22:20 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool load_textures(t_data *data) {
 
 static bool	is_valid_char(char c)
 {
-	return (c == '0' || c == '1' || c == ' '
+	return (c == '0' || c == '1' || c == '2' || c == '3' || c == ' '
 		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
