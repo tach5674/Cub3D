@@ -6,49 +6,64 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:29:38 by mikayel           #+#    #+#             */
-/*   Updated: 2025/07/21 15:11:34 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:13:39 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void load_all_textures_test(t_data *data)
+static void	convert_textures(t_data *data, int k)
 {
-	int bpp, line_len, endian;
-	int x, y;
-	void *img;
-	char *addr;
-	int		k;
-
-	k = 0;
-	while (k < NUM_TEXTURES)
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	int				i;
+	int				j;
+	
+	j = 0;
+	while (j < TEXTURE_HEIGHT)
 	{
-		img = mlx_xpm_file_to_image(data->mlx, "textures/wall_1.xpm", &x, &y);
-		if (!img || x != TEXTURE_WIDTH || y != TEXTURE_HEIGHT)
+		i = 0;
+		while (i < TEXTURE_WIDTH)
 		{
-			printf("Failed to load wall.xpm or wrong size.\n");
-			exit(1);
+			int offset = j * data->textures.line_len + i * (data->textures.bpp / 8);
+			r = data->textures.addr[offset + 2];
+			g = data->textures.addr[offset + 1];
+			b = data->textures.addr[offset + 0];
+			data->textures_test[k][TEXTURE_WIDTH * j + i] = (r << 16) | (g << 8) | b;
+			i++;
 		}
-		addr = mlx_get_data_addr(img, &bpp, &line_len, &endian);
-
-		// Copy image pixels into textures_test[0]
-		for (int j = 0; j < TEXTURE_HEIGHT; j++)
-		{
-			for (int i = 0; i < TEXTURE_WIDTH; i++)
-			{
-				int offset = j * line_len + i * (bpp / 8);
-				unsigned char r = addr[offset + 2];
-				unsigned char g = addr[offset + 1];
-				unsigned char b = addr[offset + 0];
-				data->textures_test[k][TEXTURE_WIDTH * j + i] = (r << 16) | (g << 8) | b;
-			}
-		}
-		mlx_destroy_image(data->mlx, img); // Free the temp image
-		k++;
+		j++;
 	}
 }
 
+static void	load_textures_helper(t_data *data, char *path, int k)
+{
+	data->textures.img = mlx_xpm_file_to_image(data->mlx, path,
+												&data->textures.x,
+												&data->textures.y);
+	if (!data->textures.img
+		|| data->textures.x != TEXTURE_WIDTH
+		|| data->textures.y != TEXTURE_HEIGHT)
+	{
+		printf("Failed to load wall.xpm or wrong size.\n");
+		exit(1);
+	}
+	data->textures.addr = mlx_get_data_addr(data->textures.img,
+											&data->textures.bpp,
+											&data->textures.line_len,
+											&data->textures.endian);
+	convert_textures(data, k);
+	mlx_destroy_image(data->mlx, data->textures.img); // Free the temp image
+}
 
+void load_all_textures(t_data *data)
+{
+	load_textures_helper(data, data->textures.no, 0);
+	load_textures_helper(data, data->textures.ea, 1);
+	load_textures_helper(data, data->textures.so, 2);
+	load_textures_helper(data, data->textures.we, 3);
+}
 
 static void	set_dir(t_data *data)
 {
@@ -98,9 +113,10 @@ void    init(t_data *data)
 	data->rot_speed = 2.5;
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	load_all_textures_test(data);
+	load_all_textures(data);
     gettimeofday(&time, NULL);
     data->old_time = time.tv_sec + time.tv_usec / 1000000.0;
+	mlx_hook(data->win, 17, 0, close_window, data);
 	mlx_hook(data->win, 2, 1L<<0, key_press, data);
     mlx_hook(data->win, 3, 1L<<1, key_release, data);
 	mlx_loop_hook(data->mlx, render_frame, data);

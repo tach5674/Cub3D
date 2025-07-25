@@ -6,37 +6,56 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:21:20 by mikayel           #+#    #+#             */
-/*   Updated: 2025/07/24 12:24:28 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:10:37 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void    move(t_data *data, double frame_time, int sign)
-{
-    double  move_step;
+#define COLLISION_RADIUS 0.2
 
-    move_step = data->move_speed * frame_time;
-    if (get_number(&data->map, (int)(data->pos_x + data->dir_x * move_step * sign), (int)(data->pos_y)) == 0)
-        data->pos_x += data->dir_x * move_step * sign;
-    if (get_number(&data->map, (int)data->pos_x, (int)(data->pos_y + data->dir_y * move_step * sign)) == 0)
-        data->pos_y += data->dir_y * move_step * sign;
-}
-
-static void    straife(t_data *data, double frame_time, int sign)
+static int is_position_free(t_map *map, double x, double y)
 {
-    double  move_step;
-    double perp_x;
-    double perp_y;
+    double r = COLLISION_RADIUS;
     
-    perp_x = data->dir_y * sign;
-    perp_y = -data->dir_x * sign;
-    move_step = data->move_speed * frame_time;
-    if (get_number(&data->map, (int)(data->pos_x + perp_x * move_step), (int)(data->pos_y)) == 0)
-        data->pos_x += perp_x * move_step;
-    if (get_number(&data->map, (int)data->pos_x, (int)(data->pos_y + perp_y * move_step)) == 0)
-        data->pos_y += perp_y * move_step;
+    return (
+        get_number(map, (int)(x + r), (int)(y + r)) == 0 &&
+        get_number(map, (int)(x - r), (int)(y + r)) == 0 &&
+        get_number(map, (int)(x + r), (int)(y - r)) == 0 &&
+        get_number(map, (int)(x - r), (int)(y - r)) == 0 &&
+        get_number(map, (int)(x + r), (int)(y)) == 0 &&
+        get_number(map, (int)(x - r), (int)(y)) == 0 &&
+        get_number(map, (int)(x), (int)(y + r)) == 0 &&
+        get_number(map, (int)(x), (int)(y - r)) == 0
+    );
 }
+
+static void move(t_data *data, double frame_time, int sign)
+{
+    double move_step = data->move_speed * frame_time;
+    double new_x = data->pos_x + data->dir_x * move_step * sign;
+    double new_y = data->pos_y + data->dir_y * move_step * sign;
+
+    if (is_position_free(&data->map, new_x, data->pos_y))
+        data->pos_x = new_x;
+    if (is_position_free(&data->map, data->pos_x, new_y))
+        data->pos_y = new_y;
+}
+
+static void straife(t_data *data, double frame_time, int sign)
+{
+    double move_step = data->move_speed * frame_time;
+    double perp_x = data->dir_y * sign;
+    double perp_y = -data->dir_x * sign;
+    double new_x = data->pos_x + perp_x * move_step;
+    double new_y = data->pos_y + perp_y * move_step;
+
+    if (is_position_free(&data->map, new_x, data->pos_y))
+        data->pos_x = new_x;
+    if (is_position_free(&data->map, data->pos_x, new_y))
+        data->pos_y = new_y;
+}
+
 
 static void    rotate(t_data *data, double frame_time)
 {
@@ -68,14 +87,14 @@ void handle_movement(t_data *data)
     current_time = time.tv_sec + time.tv_usec / 1000000.0;
     frame_time = current_time - data->old_time;
     data->old_time = current_time;
-    if (data->keys.key_w) // Forward
+    if (data->keys.key_w)
         move(data, frame_time, 1);
-    if (data->keys.key_s) // Backward
+    if (data->keys.key_s)
         move(data, frame_time, -1);
-    if (data->keys.key_d) // Strafe right
+    if (data->keys.key_d)
         straife(data, frame_time, -1);
-    if (data->keys.key_a) // Strafe left
+    if (data->keys.key_a)
         straife(data, frame_time, 1);
-    if (data->keys.key_left || data->keys.key_right) // Rotation
+    if (data->keys.key_left || data->keys.key_right)
         rotate(data, frame_time);
 }

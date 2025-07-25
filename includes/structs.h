@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:47:36 by mikayel           #+#    #+#             */
-/*   Updated: 2025/07/21 13:59:10 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/07/25 12:43:20 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ typedef struct s_texture {
 	char	*so;
 	char	*we;
 	char	*ea;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		x;
+	int		y;
+	void	*img;
+	char	*addr;
 }	t_texture;
 
 typedef struct s_player {
