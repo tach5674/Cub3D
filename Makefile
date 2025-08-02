@@ -13,7 +13,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Werror -Wextra # -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -g3 # -fsanitize=address
 LIBFT = $(LIBFT_DIR)/libft.a
 MINILIBX = $(MINILIBX_DIR)/libmlx.a
 

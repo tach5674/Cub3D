@@ -6,123 +6,142 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/25 13:17:13 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:50:20 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	create_trgb(int t, int r, int g, int b)
+static void	draw_line_helper(t_data *data, t_data_rc *data_rc, int x)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	int	y;
+
+	y = data_rc->draw_start;
+	while (y < data_rc->draw_end)
+	{
+		data_rc->d = y * 256 - SCREEN_HEIGHT * 128 + data_rc->line_height * 128;
+		data_rc->tex_y = ((data_rc->d * TEXTURE_HEIGHT) / data_rc->line_height)
+			/ 256;
+		data_rc->color = data->textures_test[data_rc->texture_id][TEXTURE_HEIGHT
+			* data_rc->tex_y + data_rc->tex_x];
+		if (data_rc->side)
+			data_rc->color = (data_rc->color >> 1) & 0x7F7F7F;
+		my_mlx_pixel_put(data, x, y, data_rc->color);
+		y++;
+	}
+	y = -1;
+	while (++y < data_rc->draw_start)
+		my_mlx_pixel_put(data, x, y, create_trgb(0, data->ceiling_color.r,
+				data->ceiling_color.g, data->ceiling_color.b));
+	y = data_rc->draw_end - 1;
+	while (++y < SCREEN_HEIGHT)
+		my_mlx_pixel_put(data, x, y, create_trgb(0, data->floor_color.r,
+				data->floor_color.g, data->floor_color.b));
 }
 
-void floor_casting(t_data *data)
+static void	draw_line(t_data *data, t_data_rc *data_rc, int x)
 {
-	int floor_start = SCREEN_HEIGHT / 2;
+	if (data_rc->side == 0)
+		data_rc->perp_wall_dist = data_rc->side_dist_x - data_rc->delta_dist_x;
+	else
+		data_rc->perp_wall_dist = data_rc->side_dist_y - data_rc->delta_dist_y;
+	data_rc->line_height = (int)(SCREEN_HEIGHT / data_rc->perp_wall_dist);
+	data_rc->draw_start = -data_rc->line_height / 2 + SCREEN_HEIGHT / 2;
+	data_rc->draw_end = data_rc->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (data_rc->draw_start < 0)
+		data_rc->draw_start = 0;
+	if (data_rc->draw_end >= SCREEN_HEIGHT)
+		data_rc->draw_end = SCREEN_HEIGHT - 1;
+	data_rc->texture_id = get_number(&data->map, data_rc->map_x, data_rc->map_y)
+		- 1;
+	if (data_rc->side == 0)
+		data_rc->wall_x = data->pos_y + data_rc->perp_wall_dist
+			* data_rc->ray_dir_y;
+	else
+		data_rc->wall_x = data->pos_x + data_rc->perp_wall_dist
+			* data_rc->ray_dir_x;
+	data_rc->wall_x -= floor(data_rc->wall_x);
+	data_rc->tex_x = (int)(data_rc->wall_x * (double)TEXTURE_WIDTH);
+	if ((data_rc->side == 0 && data_rc->ray_dir_x > 0) || (data_rc->side == 1
+			&& data_rc->ray_dir_y < 0))
+		data_rc->tex_x = TEXTURE_WIDTH - data_rc->tex_x - 1;
+	draw_line_helper(data, data_rc, x);
+}
 
-    for (int y = floor_start; y < SCREEN_HEIGHT; y++)
-    {
-        for (int x = 0; x < SCREEN_WIDTH; x++)
-        {
-            my_mlx_pixel_put(data, x, y,create_trgb(0, data->floor_color.r, data->floor_color.g, data->floor_color.b));
-            my_mlx_pixel_put(data, x, SCREEN_HEIGHT - y - 1, create_trgb(0, data->ceiling_color.r, data->ceiling_color.g, data->ceiling_color.b));
-        }
-    }
+static void	check_if_hit(t_data *data, t_data_rc *data_rc)
+{
+	data_rc->hit = 0;
+	while (!data_rc->hit)
+	{
+		if (data_rc->side_dist_x < data_rc->side_dist_y)
+		{
+			data_rc->side_dist_x += data_rc->delta_dist_x;
+			data_rc->map_x += data_rc->step_x;
+			data_rc->side = 0;
+		}
+		else
+		{
+			data_rc->side_dist_y += data_rc->delta_dist_y;
+			data_rc->map_y += data_rc->step_y;
+			data_rc->side = 1;
+		}
+		if (get_number(&data->map, data_rc->map_x, data_rc->map_y) > 0)
+			data_rc->hit = 1;
+	}
+}
+
+static void	calculate_step(t_data *data, t_data_rc *data_rc)
+{
+	if (data_rc->ray_dir_x < 0)
+	{
+		data_rc->step_x = -1;
+		data_rc->side_dist_x = (data->pos_x - data_rc->map_x)
+			* data_rc->delta_dist_x;
+	}
+	else
+	{
+		data_rc->step_x = 1;
+		data_rc->side_dist_x = (data_rc->map_x + 1.0 - data->pos_x)
+			* data_rc->delta_dist_x;
+	}
+	if (data_rc->ray_dir_y < 0)
+	{
+		data_rc->step_y = -1;
+		data_rc->side_dist_y = (data->pos_y - data_rc->map_y)
+			* data_rc->delta_dist_y;
+	}
+	else
+	{
+		data_rc->step_y = 1;
+		data_rc->side_dist_y = (data_rc->map_y + 1.0 - data->pos_y)
+			* data_rc->delta_dist_y;
+	}
 }
 
 void	raycast(t_data *data)
 {
-	floor_casting(data);
-	for (int x = 0; x < SCREEN_WIDTH; x++)
+	t_data_rc	data_rc;
+	int			x;
+
+	x = 0;
+	while (x < SCREEN_WIDTH)
 	{
-		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		double ray_dir_x = data->dir_x + data->plane_x * camera_x;
-		double ray_dir_y = data->dir_y + data->plane_y * camera_x;
-
-		int map_x = (int)data->pos_x;
-		int map_y = (int)data->pos_y;
-		double delta_dist_x = fabs(1.0 / (ray_dir_x == 0 ? 1e-6 : ray_dir_x));
-		double delta_dist_y = fabs(1.0 / (ray_dir_y == 0 ? 1e-6 : ray_dir_y));
-
-		double side_dist_x, side_dist_y;
-		int step_x, step_y, hit = 0, side;
-
-		if (ray_dir_x < 0)
-		{
-			step_x = -1;
-			side_dist_x = (data->pos_x - map_x) * delta_dist_x;
-		}
+		data_rc.camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+		data_rc.ray_dir_x = data->dir_x + data->plane_x * data_rc.camera_x;
+		data_rc.ray_dir_y = data->dir_y + data->plane_y * data_rc.camera_x;
+		data_rc.map_x = (int)data->pos_x;
+		data_rc.map_y = (int)data->pos_y;
+		if (data_rc.ray_dir_x == 0)
+			data_rc.delta_dist_x = 1.0 / fabs(1e-6);
 		else
-		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - data->pos_x) * delta_dist_x;
-		}
-		if (ray_dir_y < 0)
-		{
-			step_y = -1;
-			side_dist_y = (data->pos_y - map_y) * delta_dist_y;
-		}
+			data_rc.delta_dist_x = 1.0 / fabs(data_rc.ray_dir_x);
+		if (data_rc.ray_dir_x == 0)
+			data_rc.delta_dist_y = 1.0 / fabs(1e-6);
 		else
-		{
-			step_y = 1;
-			side_dist_y = (map_y + 1.0 - data->pos_y) * delta_dist_y;
-		}
-
-		while (!hit)
-		{
-			if (side_dist_x < side_dist_y)
-			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
-				side = 0;
-			}
-			else
-			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
-				side = 1;
-			}
-			// if (map_y >= data->map.height)
-			// {
-			// 	printf("Unexpected hit\n");
-			// 	break;
-			// }
-			if (get_number(&data->map, map_x, map_y) > 0)
-				hit = 1;
-		}
-
-		double perp_wall_dist = (side == 0) ? (side_dist_x - delta_dist_x) : (side_dist_y - delta_dist_y);
-		int line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
-		int draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
-		int draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
-		if (draw_start < 0) draw_start = 0;
-		if (draw_end >= SCREEN_HEIGHT) draw_end = SCREEN_HEIGHT - 1;
-		
-		int texture_id = get_number(&data->map, map_x, map_y) - 1;
-
-		// Wall hit X
-		double wall_x;
-		if (side == 0)
-			wall_x = data->pos_y + perp_wall_dist * ray_dir_y;
-		else
-			wall_x = data->pos_x + perp_wall_dist * ray_dir_x;
-		wall_x -= floor(wall_x);
-
-		// Texture X
-		int tex_x = (int)(wall_x * (double)TEXTURE_WIDTH);
-		if ((side == 0 && ray_dir_x > 0) || (side == 1 && ray_dir_y < 0))
-			tex_x = TEXTURE_WIDTH - tex_x - 1;
-
-		// Draw textured vertical line
-		for (int y = draw_start; y < draw_end; y++)
-		{
-			int d = y * 256 - SCREEN_HEIGHT * 128 + line_height * 128;
-			int tex_y = ((d * TEXTURE_HEIGHT) / line_height) / 256;
-			int color = data->textures_test[texture_id][TEXTURE_HEIGHT * tex_y + tex_x];
-			if (side)
-				color = (color >> 1) & 0x7F7F7F;
-			my_mlx_pixel_put(data, x, y, color);
-		}
+			data_rc.delta_dist_y = 1.0 / fabs(data_rc.ray_dir_y);
+		calculate_step(data, &data_rc);
+		check_if_hit(data, &data_rc);
+		draw_line(data, &data_rc, x);
+		x++;
 	}
 }
