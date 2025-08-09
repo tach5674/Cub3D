@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/07 12:16:32 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:45:26 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 # include "libft.h"
 # include "stdbool.h"
 
-void	free_map(t_map *map);
+void	free_data(t_data *data, t_map *map);
 void	ft_lstclear(t_line **lst, void (*del)(void *));
 char	*trim_newline(char *line);
 void	ft_free_split(char **arr);
-void	free_map(t_map *map);
 bool	error_msg(char *msg);
 bool	load_textures(t_data *data);
 bool	find_player(t_map *map);

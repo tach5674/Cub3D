@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:04:46 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/07/07 11:37:15 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:45:10 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_free_split(char **arr)
 	free(arr);
 }
 
-void	free_map(t_map *map)
+void	free_data(t_data *data, t_map *map)
 {
 	int	i;
 
@@ -62,6 +62,10 @@ void	free_map(t_map *map)
 	free(map->map);
 	map->map = NULL;
 	map->height = 0;
+	free(data->textures.no);
+	free(data->textures.we);
+	free(data->textures.ea);
+	free(data->textures.so);
 }
 
 bool	error_msg(char *msg)

@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/02 13:50:20 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:34:03 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,27 @@
 static void	draw_line_helper(t_data *data, t_data_rc *data_rc, int x)
 {
 	int	y;
-
+	
 	y = data_rc->draw_start;
 	while (y < data_rc->draw_end)
 	{
 		data_rc->d = y * 256 - SCREEN_HEIGHT * 128 + data_rc->line_height * 128;
 		data_rc->tex_y = ((data_rc->d * TEXTURE_HEIGHT) / data_rc->line_height)
 			/ 256;
+		if (data_rc->side == 0)
+		{
+			if (data_rc->ray_dir_x > 0)
+				data_rc->texture_id = 0;
+			else
+				data_rc->texture_id = 1;
+		}
+		else
+		{
+			if (data_rc->ray_dir_y > 0)
+				data_rc->texture_id = 2;
+			else
+				data_rc->texture_id = 3;
+		}
 		data_rc->color = data->textures_test[data_rc->texture_id][TEXTURE_HEIGHT
 			* data_rc->tex_y + data_rc->tex_x];
 		if (data_rc->side)
@@ -54,6 +68,7 @@ static void	draw_line(t_data *data, t_data_rc *data_rc, int x)
 		data_rc->draw_end = SCREEN_HEIGHT - 1;
 	data_rc->texture_id = get_number(&data->map, data_rc->map_x, data_rc->map_y)
 		- 1;
+	data_rc->texture_id = data_rc->side;
 	if (data_rc->side == 0)
 		data_rc->wall_x = data->pos_y + data_rc->perp_wall_dist
 			* data_rc->ray_dir_y;
@@ -135,7 +150,7 @@ void	raycast(t_data *data)
 			data_rc.delta_dist_x = 1.0 / fabs(1e-6);
 		else
 			data_rc.delta_dist_x = 1.0 / fabs(data_rc.ray_dir_x);
-		if (data_rc.ray_dir_x == 0)
+		if (data_rc.ray_dir_y == 0)
 			data_rc.delta_dist_y = 1.0 / fabs(1e-6);
 		else
 			data_rc.delta_dist_y = 1.0 / fabs(data_rc.ray_dir_y);

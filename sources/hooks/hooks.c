@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:35:04 by mikayel           #+#    #+#             */
-/*   Updated: 2025/08/02 13:57:01 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:48:34 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	close_window(t_data *data)
     mlx_clear_window(data->mlx, data->win);
     mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img);
-    free_map(&data->map);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+    free_data(data, &data->map);
 	exit(0);
 }
 
