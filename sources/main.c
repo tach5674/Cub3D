@@ -6,14 +6,11 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:59:31 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/09 17:46:15 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 15:06:24 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
 
 // void	print_map(const t_map *map)
 // {
@@ -31,22 +28,6 @@
 // 	}
 // }
 
-int	render_frame(t_data *data)
-{
-	struct timeval	time;
-	double			frame_time;
-
-	gettimeofday(&time, NULL);
-	frame_time = time.tv_sec + time.tv_usec / 1000000.0;
-	handle_movement(data);
-	raycast(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	gettimeofday(&time, NULL);
-	frame_time = time.tv_sec + time.tv_usec / 1000000.0 - frame_time;
-	// printf("FPS: %f\n", 1.0 / frame_time);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -60,7 +41,6 @@ int	main(int argc, char **argv)
 	if (!parse_config(fd, &data))
 		return (close(fd), 1);
 	close(fd);
-	// print_map(&data.map);
 	printf("Map parsed successfully. Player at (%d, %d) facing %c\n",
 		data.map.player.x, data.map.player.y, data.map.player.dir);
 	init(&data);

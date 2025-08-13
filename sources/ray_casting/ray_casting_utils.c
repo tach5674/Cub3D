@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.h                                            :+:      :+:    :+:   */
+/*   ray_casting_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 13:35:19 by mikayel           #+#    #+#             */
-/*   Updated: 2025/08/13 14:54:01 by mzohraby         ###   ########.fr       */
+/*   Created: 2025/08/13 15:03:04 by mzohraby          #+#    #+#             */
+/*   Updated: 2025/08/13 15:03:29 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOKS_H
-# define HOOKS_H
+#include "cub3d.h"
 
-# include "cub3d.h"
-
-int		key_press(int keycode, t_data *data);
-int		key_release(int keycode, t_data *data);
-void	handle_movement(t_data *data);
-int		close_window(t_data *data);
-
-#endif
+void	choose_texture(t_data_rc *data_rc)
+{
+	if (data_rc->side == 0)
+	{
+		if (data_rc->ray_dir_x > 0)
+			data_rc->texture_id = 0;
+		else
+			data_rc->texture_id = 1;
+	}
+	else
+	{
+		if (data_rc->ray_dir_y > 0)
+			data_rc->texture_id = 2;
+		else
+			data_rc->texture_id = 3;
+	}
+}

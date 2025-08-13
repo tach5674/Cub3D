@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:11 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/07/24 12:22:47 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 14:57:05 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,9 @@ bool	is_map_line(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != '0'
-			&& line[i] != '1'
-			&& line[i] != '2'
-			&& line[i] != '3'
-			&& line[i] != ' '
-			&& line[i] != 'N'
-			&& line[i] != 'S'
-			&& line[i] != 'E'
-			&& line[i] != 'W')
+		if (line[i] != '0' && line[i] != '1' && line[i] != '2' && line[i] != '3'
+			&& line[i] != ' ' && line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W')
 			return (false);
 		i++;
 	}
@@ -43,8 +37,7 @@ static int	handle_map_line(char *line, t_line **map_lines)
 
 	copy = ft_strdup(line);
 	if (!copy)
-		return (printf("Error\nMemory allocation failed\n"),
-			-1);
+		return (printf("Error\nMemory allocation failed\n"), -1);
 	new_node = ft_lstnew(copy);
 	if (!new_node)
 	{
@@ -75,8 +68,8 @@ static int	handle_non_map_line(char *line, t_data *data)
 	return (0);
 }
 
-static int	process_line(char *line, bool *map_started,
-	t_line **map_lines, t_data *data)
+static int	process_line(char *line, bool *map_started, t_line **map_lines,
+		t_data *data)
 {
 	int	result;
 

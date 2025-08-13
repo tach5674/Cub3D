@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:07:01 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/07/02 12:17:24 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/08/13 14:56:58 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ bool	find_player(t_map *map)
 		x = 0;
 		while (x < map->map[y].line_length)
 		{
-			if (is_player(map->map[y].line[x])
-				&& !set_player(&found, map, x, y))
+			if (is_player(map->map[y].line[x]) && !set_player(&found, map, x,
+					y))
 			{
 				return (false);
 			}

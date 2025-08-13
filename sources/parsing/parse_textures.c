@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:09:25 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/08/09 17:47:33 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 14:57:02 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,8 @@ bool	is_texture_line(char *line)
 {
 	if (!line)
 		return (false);
-	return (
-		ft_strncmp(line, "NO ", 3) == 0
-		|| ft_strncmp(line, "SO ", 3) == 0
-		|| ft_strncmp(line, "WE ", 3) == 0
-		|| ft_strncmp(line, "EA ", 3) == 0
-	);
+	return (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
+		|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0);
 }
 
 int	parse_texture_line(char *line, t_data *data)
@@ -53,10 +49,7 @@ bool	is_color_line(char *line)
 {
 	if (!line)
 		return (false);
-	return (
-		ft_strncmp(line, "F ", 2) == 0
-		|| ft_strncmp(line, "C ", 2) == 0
-	);
+	return (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0);
 }
 
 static bool	parse_color(t_color *color, char *splitted_rgb)
@@ -69,10 +62,10 @@ static bool	parse_color(t_color *color, char *splitted_rgb)
 	color->r = ft_atoi(rgb[0]);
 	color->g = ft_atoi(rgb[1]);
 	color->b = ft_atoi(rgb[2]);
-	if (color->r < 0 || color->r > 255 || color->g < 0
-		|| color->g > 255 || color->b < 0 || color->b > 255)
-		return (printf("Error\nRGB out of range: %d,%d,%d\n",
-				color->r, color->g, color->b), false);
+	if (color->r < 0 || color->r > 255 || color->g < 0 || color->g > 255
+		|| color->b < 0 || color->b > 255)
+		return (printf("Error\nRGB out of range: %d,%d,%d\n", color->r,
+				color->g, color->b), false);
 	ft_free_split(rgb);
 	return (true);
 }
