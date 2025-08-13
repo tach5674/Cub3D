@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 15:31:55 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:26:48 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ static void	draw_line(t_data *data, t_data_rc *data_rc, int x)
 		data_rc->draw_start = 0;
 	if (data_rc->draw_end >= SCREEN_HEIGHT)
 		data_rc->draw_end = SCREEN_HEIGHT - 1;
-	data_rc->texture_id = get_number(&data->map, data_rc->map_x, data_rc->map_y)
-		- 1;
-	data_rc->texture_id = data_rc->side;
 	if (data_rc->side == 0)
 		data_rc->wall_x = data->pos_y + data_rc->pwd * data_rc->ray_dir_y;
 	else
