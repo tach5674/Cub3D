@@ -6,15 +6,15 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:01 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 15:06:40 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:02:58 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 600
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 1024
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
 # define TEXTURE_WIDTH 64

@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:13:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 15:13:47 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:56:57 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ bool	file_exists(const char *filename)
 {
 	int	fd;
 
+	if (!filename)
+		return (false);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{

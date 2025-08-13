@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_convert_map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:40:42 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/07/02 12:47:06 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:52:17 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ bool	convert_list_to_map(t_line *lst, t_map *map)
 	int		count;
 	t_line	*result;
 
+	
 	if (!validate_list_size(lst))
 		return (false);
 	count = ft_lstsize(lst);

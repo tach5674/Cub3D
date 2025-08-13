@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:07:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 15:19:49 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:58:46 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	convert_textures(t_data *data, int k)
 			rgb[0] = data->textures.addr[offset + 2];
 			rgb[1] = data->textures.addr[offset + 1];
 			rgb[2] = data->textures.addr[offset + 0];
-			data->textures_ready[k][TEXTURE_WIDTH * j + i] 
-                = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+			data->textures_ready[k][TEXTURE_WIDTH * j
+				+ i] = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 			i++;
 		}
 		j++;
@@ -44,6 +44,7 @@ static void	load_textures_helper(t_data *data, char *path, int k)
 	if (!data->textures.img || data->textures.x != TEXTURE_WIDTH
 		|| data->textures.y != TEXTURE_HEIGHT)
 	{
+		close_window(data);
 		printf("%s%s%s\n", "Failed to load ", path, " or wrong size.");
 		exit(1);
 	}

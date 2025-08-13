@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:04:11 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 14:57:05 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:59:08 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,17 @@ bool	parse_config(int fd, t_data *data)
 
 	map_lines = NULL;
 	map_started = false;
+	data->textures.no = NULL;
+	data->textures.we = NULL;
+	data->textures.ea = NULL;
+	data->textures.so = NULL;
+	data->ceiling_color.r = 0;
+	data->ceiling_color.g = 150;
+	data->ceiling_color.b = 255;
+	data->floor_color.r = 150;
+	data->floor_color.g = 84;
+	data->floor_color.b = 47;
+	data->map.map = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{

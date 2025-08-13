@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:59:31 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 15:06:24 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:12:29 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int	main(int argc, char **argv)
 	if (fd < 0)
 		return (perror("Error opening file"), 1);
 	if (!parse_config(fd, &data))
+	{
+		free_data(&data, &data.map);
 		return (close(fd), 1);
+	}
 	close(fd);
 	printf("Map parsed successfully. Player at (%d, %d) facing %c\n",
 		data.map.player.x, data.map.player.y, data.map.player.dir);
