@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:26:06 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/08/13 15:13:42 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/16 23:02:30 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,84 @@ static bool	check_chars(t_map *map)
 	return (true);
 }
 
+static void	flood_fill(char **temp_map, int y, int x, int height, int width)
+{
+	if (y < 0 || y >= height || x < 0 || x >= width || temp_map[y][x] == '1' 
+		|| temp_map[y][x] == 'F')
+		return ;
+	
+	temp_map[y][x] = 'F';
+	
+	flood_fill(temp_map, y - 1, x, height, width);
+	flood_fill(temp_map, y + 1, x, height, width);
+	flood_fill(temp_map, y, x - 1, height, width);
+	flood_fill(temp_map, y, x + 1, height, width);
+}
+
+static bool	check_map_closed(t_map *map)
+{
+	char	**temp_map;
+	int		y;
+	int		x;
+	int		max_width;
+	bool	is_closed;
+
+	max_width = 0;
+	y = 0;
+	while (y < map->height)
+	{
+		x = ft_strlen(map->map[y].line);
+		if (x > max_width)
+			max_width = x;
+		y++;
+	}
+
+	temp_map = malloc(sizeof(char *) * map->height);
+	if (!temp_map)
+		return (false);
+	
+	y = 0;
+	while (y < map->height)
+	{
+		temp_map[y] = malloc(max_width + 1);
+		if (!temp_map[y])
+		{
+			while (--y >= 0)
+				free(temp_map[y]);
+			free(temp_map);
+			return (false);
+		}
+		ft_memset(temp_map[y], ' ', max_width);
+		temp_map[y][max_width] = '\0';
+		ft_strlcpy(temp_map[y], map->map[y].line, ft_strlen(map->map[y].line) + 1);
+		y++;
+	}
+	flood_fill(temp_map, map->player.y, map->player.x, map->height, max_width);
+	is_closed = true;
+	y = 0;
+	while (y < map->height && is_closed)
+	{
+		x = 0;
+		while (x < max_width && is_closed)
+		{
+			if ((y == 0 || y == map->height - 1 || x == 0 || x == max_width - 1)
+				&& temp_map[y][x] == 'F')
+				is_closed = false;
+			x++;
+		}
+		y++;
+	}
+	y = 0;
+	while (y < map->height)
+	{
+		free(temp_map[y]);
+		y++;
+	}
+	free(temp_map);
+
+	return (is_closed);
+}
+
 bool	validate_map(t_data *data)
 {
 	if (!check_chars(&data->map))
@@ -97,5 +175,7 @@ bool	validate_map(t_data *data)
 		return (error_msg("Map must have exactly one player"));
 	if (!check_borders(&data->map))
 		return (error_msg("Map must be surrounded by walls"));
+	if (!check_map_closed(&data->map))
+		return (error_msg("Map is not closed - player can escape"));
 	return (true);
 }
