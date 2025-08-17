@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:29:38 by mikayel           #+#    #+#             */
-/*   Updated: 2025/08/17 16:38:28 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 17:35:26 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	window_init(t_data *data, struct timeval *time)
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length,
 			&data->endian);
-	load_all_textures(data);
 	gettimeofday(time, NULL);
 	data->old_time = time->tv_sec + time->tv_usec / 1000000.0;
 	mlx_hook(data->win, 17, 0, close_window, data);
@@ -76,6 +75,7 @@ void	init(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		close_window(data, EXIT_FAILURE);
+	load_all_textures(data);
 	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
 	if (!data->win)
 		close_window(data, EXIT_FAILURE);
