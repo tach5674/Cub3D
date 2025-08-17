@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:29:38 by mikayel           #+#    #+#             */
-/*   Updated: 2025/08/13 19:51:48 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:38:28 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static int	render_frame(t_data *data)
 static void	window_init(t_data *data, struct timeval *time)
 {
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bpp,
-			&data->line_length, &data->endian);
+	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length,
+			&data->endian);
 	load_all_textures(data);
 	gettimeofday(time, NULL);
 	data->old_time = time->tv_sec + time->tv_usec / 1000000.0;
@@ -71,12 +71,14 @@ void	init(t_data *data)
 {
 	struct timeval	time;
 
+	data->win = NULL;
+	data->img = NULL;
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		exit(EXIT_FAILURE);
+		close_window(data, EXIT_FAILURE);
 	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
 	if (!data->win)
-		exit(EXIT_FAILURE);
+		close_window(data, EXIT_FAILURE);
 	ft_memset(&data->keys, 0, sizeof(t_keys));
 	data->pos_x = data->map.player.x + 0.5;
 	data->pos_y = data->map.player.y + 0.5;

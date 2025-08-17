@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:07:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/13 19:58:46 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:32:09 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	load_textures_helper(t_data *data, char *path, int k)
 	if (!data->textures.img || data->textures.x != TEXTURE_WIDTH
 		|| data->textures.y != TEXTURE_HEIGHT)
 	{
-		close_window(data);
+		close_window(data, EXIT_FAILURE);
 		printf("%s%s%s\n", "Failed to load ", path, " or wrong size.");
 		exit(1);
 	}

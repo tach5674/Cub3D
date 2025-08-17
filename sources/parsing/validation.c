@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
+/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:26:06 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/08/16 23:02:30 by ggevorgi         ###   ########.fr       */
+/*   Updated: 2025/08/17 17:03:20 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static bool	is_valid_char(char c)
-{
-	return (c == '0' || c == '1' || c == '2' || c == '3' || c == ' ' || c == 'N'
-		|| c == 'S' || c == 'E' || c == 'W');
-}
-
-static bool	check_borders(t_map *map)
-{
-	int	y;
-	int	x;
-	int	width;
-
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		width = (int)ft_strlen(map->map[y].line);
-		while (x < width)
-		{
-			if ((y == 0 || y == map->height - 1 || x == 0 || x == width - 1)
-				&& map->map[y].line[x] != '1' && map->map[y].line[x] != ' ')
-				return (false);
-			x++;
-		}
-		y++;
-	}
-	return (true);
-}
 
 static bool	check_player(t_map *map)
 {
@@ -89,18 +60,16 @@ static bool	check_chars(t_map *map)
 	return (true);
 }
 
-static void	flood_fill(char **temp_map, int y, int x, int height, int width)
+static void	flood_fill(char **temp_map, t_point p, int height, int width)
 {
-	if (y < 0 || y >= height || x < 0 || x >= width || temp_map[y][x] == '1' 
-		|| temp_map[y][x] == 'F')
+	if (p.y < 0 || p.y >= height || p.x < 0 || p.x >= width
+		|| temp_map[p.y][p.x] == '1' || temp_map[p.y][p.x] == 'F')
 		return ;
-	
-	temp_map[y][x] = 'F';
-	
-	flood_fill(temp_map, y - 1, x, height, width);
-	flood_fill(temp_map, y + 1, x, height, width);
-	flood_fill(temp_map, y, x - 1, height, width);
-	flood_fill(temp_map, y, x + 1, height, width);
+	temp_map[p.y][p.x] = 'F';
+	flood_fill(temp_map, (t_point){p.y - 1, p.x}, height, width);
+	flood_fill(temp_map, (t_point){p.y + 1, p.x}, height, width);
+	flood_fill(temp_map, (t_point){p.y, p.x - 1}, height, width);
+	flood_fill(temp_map, (t_point){p.y, p.x + 1}, height, width);
 }
 
 static bool	check_map_closed(t_map *map)
@@ -120,11 +89,9 @@ static bool	check_map_closed(t_map *map)
 			max_width = x;
 		y++;
 	}
-
 	temp_map = malloc(sizeof(char *) * map->height);
 	if (!temp_map)
 		return (false);
-	
 	y = 0;
 	while (y < map->height)
 	{
@@ -138,10 +105,12 @@ static bool	check_map_closed(t_map *map)
 		}
 		ft_memset(temp_map[y], ' ', max_width);
 		temp_map[y][max_width] = '\0';
-		ft_strlcpy(temp_map[y], map->map[y].line, ft_strlen(map->map[y].line) + 1);
+		ft_strlcpy(temp_map[y], map->map[y].line, ft_strlen(map->map[y].line)
+			+ 1);
 		y++;
 	}
-	flood_fill(temp_map, map->player.y, map->player.x, map->height, max_width);
+	flood_fill(temp_map, (t_point){map->player.y, map->player.x}, map->height,
+		max_width);
 	is_closed = true;
 	y = 0;
 	while (y < map->height && is_closed)
@@ -163,7 +132,6 @@ static bool	check_map_closed(t_map *map)
 		y++;
 	}
 	free(temp_map);
-
 	return (is_closed);
 }
 

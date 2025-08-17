@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:04:46 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/08/13 19:50:14 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:39:12 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_free_split(char **arr)
 void	free_data(t_data *data, t_map *map)
 {
 	int	i;
-	
+
 	get_next_line(-1);
 	free(data->textures.no);
 	free(data->textures.we);

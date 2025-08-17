@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.h                                            :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 13:35:19 by mikayel           #+#    #+#             */
-/*   Updated: 2025/08/17 16:31:27 by mzohraby         ###   ########.fr       */
+/*   Created: 2025/08/17 16:40:27 by mzohraby          #+#    #+#             */
+/*   Updated: 2025/08/17 16:43:39 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOKS_H
-# define HOOKS_H
+#include "cub3d.h"
 
-# include "cub3d.h"
-
-int		key_press(int keycode, t_data *data);
-int		key_release(int keycode, t_data *data);
-void	handle_movement(t_data *data);
-int		close_window(t_data *data, int exit_code);
-
-#endif
+void	parsing_init(t_data *data)
+{
+	data->textures.no = NULL;
+	data->textures.we = NULL;
+	data->textures.ea = NULL;
+	data->textures.so = NULL;
+	data->ceiling_color.r = 0;
+	data->ceiling_color.g = 150;
+	data->ceiling_color.b = 255;
+	data->floor_color.r = 150;
+	data->floor_color.g = 84;
+	data->floor_color.b = 47;
+	data->map.map = NULL;
+}

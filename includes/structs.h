@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:47:36 by mikayel           #+#    #+#             */
-/*   Updated: 2025/08/13 15:06:12 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 17:02:00 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define STRUCTS_H
 
 # include "cub3d.h"
+
+typedef struct s_point
+{
+	int			y;
+	int			x;
+}				t_point;
 
 typedef struct s_color
 {

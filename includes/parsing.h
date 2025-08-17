@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/09 17:45:26 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:45:35 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ int		parse_color_line(char *line, t_data *data);
 bool	convert_list_to_map(t_line *lst, t_map *map);
 bool	parse_config(int fd, t_data *data);
 bool	validate_map(t_data *data);
+void	parsing_init(t_data *data);
+bool	is_valid_char(char c);
+bool	check_borders(t_map *map);
 
 #endif
