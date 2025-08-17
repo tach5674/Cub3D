@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/17 16:45:35 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/17 17:17:50 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ bool	validate_map(t_data *data);
 void	parsing_init(t_data *data);
 bool	is_valid_char(char c);
 bool	check_borders(t_map *map);
+bool	check_map_closed(t_map *map);
+void	flood_fill(char **temp_map, t_point p, int height, int width);
 
 #endif
