@@ -57,12 +57,10 @@ $(NAME): $(OBJS) $(LIBFT) $(MINILIBX)
 clean:
 	$(RM) $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MINILIBX_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) -C $(MINILIBX_DIR) clean
 
 re: fclean all
 
