@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:09:25 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/08/31 18:59:03 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:59:43 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ bool	is_texture_line(char *line)
 		|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0);
 }
 
+
 int	parse_texture_line(char *line, t_data *data)
 {
 	char	**split;
@@ -32,13 +33,13 @@ int	parse_texture_line(char *line, t_data *data)
 			ft_free_split(split), -1);
 	key = split[0];
 	value = split[1];
-	if (ft_strcmp(key, "NO") == 0)
+	if (ft_strcmp(key, "NO") == 0 && !data->textures.no)
 		data->textures.no = ft_strdup(value);
-	else if (ft_strcmp(key, "SO") == 0)
+	else if (ft_strcmp(key, "SO") == 0 && !data->textures.so)
 		data->textures.so = ft_strdup(value);
-	else if (ft_strcmp(key, "WE") == 0)
+	else if (ft_strcmp(key, "WE") == 0 && !data->textures.we)
 		data->textures.we = ft_strdup(value);
-	else if (ft_strcmp(key, "EA") == 0)
+	else if (ft_strcmp(key, "EA") == 0 && !data->textures.ea)
 		data->textures.ea = ft_strdup(value);
 	else
 		return (printf("Error\nUnknown texture key: %s\n", key),
@@ -69,7 +70,8 @@ static bool	parse_color(t_color *color, char *splitted_rgb)
 	color->b = ft_custom_atoi(rgb[2]);
 	if (color->r < 0 || color->r > 255 || color->g < 0 || color->g > 255
 		|| color->b < 0 || color->b > 255)
-		return (ft_free_split(rgb), printf("Error\nRGB out of range\n"), false);
+		return (ft_free_split(rgb), printf("Error\nRGB out of range: %d,%d,%d\n", color->r,
+				color->g, color->b), false);
 	ft_free_split(rgb);
 	return (true);
 }
@@ -81,10 +83,12 @@ int	parse_color_line(char *line, t_data *data)
 	color.r = 0;
 	color.g = 0; 
 	color.b = 0;
-
-	if (!parse_color(&color, line + 2))
-		return (-1);
-	if (line[0] == 'F')
+	split = ft_split(line, ' ');
+	if (!split || !split[0] || !split[1] || split[2])
+		return (ft_free_split(split), printf("Error\nInvalid color line: %s\n", line), -1);
+	if (!parse_color(&color, split[1]))
+		return (ft_free_split(split), -1);
+	if (ft_strcmp(split[0], "F") == 0)
 		data->floor_color = color;
 	else if (line[0] == 'C')
 		data->ceiling_color = color;

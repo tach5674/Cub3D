@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:57:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/17 17:17:50 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:48:46 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ bool	is_valid_char(char c);
 bool	check_borders(t_map *map);
 bool	check_map_closed(t_map *map);
 void	flood_fill(char **temp_map, t_point p, int height, int width);
+int 	ft_custom_atoi(char *str);
 
 #endif
