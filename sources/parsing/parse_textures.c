@@ -6,7 +6,7 @@
 /*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:09:25 by ggevorgi          #+#    #+#             */
-/*   Updated: 2025/08/31 18:59:43 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/31 19:03:54 by mzohraby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static bool	parse_color(t_color *color, char *splitted_rgb)
 int	parse_color_line(char *line, t_data *data)
 {
 	t_color	color;
+	char	**split;
 
 	color.r = 0;
 	color.g = 0; 
