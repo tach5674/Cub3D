@@ -16,6 +16,7 @@ SRCS = \
 	$(SRC_DIR)/parsing/parsing.c \
 	$(SRC_DIR)/parsing/parsing_utils.c \
 	$(SRC_DIR)/parsing/utils.c \
+	$(SRC_DIR)/parsing/ft_custom_atoi.c \
 	$(SRC_DIR)/parsing/validataion_utils.c \
 	$(SRC_DIR)/parsing/validation.c \
 	$(SRC_DIR)/ray_casting/ray_casting.c \

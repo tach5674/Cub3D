@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validataion_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:13:15 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/17 16:45:04 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:33:15 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	load_textures(t_data *data)
 	{
 		if (!file_exists(textures[i]))
 		{
-			printf("Error: %s texture not found: %s\n", texture_names[i],
+			printf("Error\nError: %s texture not found: %s\n", texture_names[i],
 				textures[i]);
 			return (false);
 		}

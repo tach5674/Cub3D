@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzohraby <mzohraby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggevorgi <sp1tak.gg@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:07:27 by mzohraby          #+#    #+#             */
-/*   Updated: 2025/08/17 17:30:54 by mzohraby         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:49:05 by ggevorgi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	load_textures_helper(t_data *data, char *path, int k)
 	if (!data->textures.img || data->textures.x != TEXTURE_WIDTH
 		|| data->textures.y != TEXTURE_HEIGHT)
 	{
-		printf("%s%s%s\n", "Failed to load ", path, " or wrong size.");
+		printf("Error\n%s%s%s\n", "Failed to load ", path, " or wrong size.");
 		close_window(data, EXIT_FAILURE);
 	}
 	data->textures.addr = mlx_get_data_addr(data->textures.img,
